@@ -3,6 +3,7 @@ extends CharacterBody3D
 @export var move_speed: float = 5.0
 @export var acceleration: float = 10.0
 @export var rotation_speed: float = 10.0
+@export var attack_buffer_time: float = 0.3
 
 
 @onready var anim_tree: AnimationTree = $AnimationTree
@@ -119,13 +120,10 @@ func _handle_attack_input() -> void:
 		return
 
 
-	# Kolejne kliknięcie zapisujemy do bufora.
-	#
-	# Nie zmieniamy tutaj animacji.
-	# Animacja skończy się normalnie,
-	# a _on_animation_finished() zdecyduje
-	# co ma być następne.
-	queued_attack = true
+	# Kolejne kliknięcie jest akceptowane
+	# tylko w ostatnich 0.3 sekundy animacji.
+	if _is_attack_buffer_window_open():
+		queued_attack = true
 
 
 # ============================================================
@@ -143,6 +141,15 @@ func _start_combat() -> void:
 
 	top_playback.travel("Combat")
 
+
+func _is_attack_buffer_window_open() -> bool:
+	var current_position := combat_playback.get_current_play_position()
+	var animation_length := combat_playback.get_current_length()
+
+	var remaining_time := animation_length - current_position
+
+	return remaining_time <= attack_buffer_time
+	
 
 # ============================================================
 # ANIMATION FINISHED
