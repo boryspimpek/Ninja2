@@ -14,8 +14,9 @@ sky_material = SubResource("ProceduralSkyMaterial_7dm0k")
 [sub_resource type="Environment" id="Environment_0xm2m"]
 background_mode = 2
 sky = SubResource("Sky_ig7tw")
-tonemap_mode = 2
+tonemap_mode = 3
 glow_enabled = true
+adjustment_enabled = true
 
 [node name="Main" type="Node3D" unique_id=306972584]
 
@@ -25,14 +26,22 @@ glow_enabled = true
 environment = SubResource("Environment_0xm2m")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="World" unique_id=1810642106]
-transform = Transform3D(-0.7933533, -0.4073409, -0.4523979, 0, -0.7431448, 0.6691306, -0.6087614, 0.530857, 0.5895764, 0, 10, 0)
+transform = Transform3D(-0.5075383, 0.5064529, 0.6970726, -7.0726514e-08, -0.809017, 0.58778524, 0.8616291, 0.29832348, 0.4106072, 0, 10, 0)
 shadow_enabled = true
+directional_shadow_mode = 1
+directional_shadow_split_1 = 0.053
+directional_shadow_max_distance = 130.0
 
 [node name="Camera3D" type="Camera3D" parent="World" unique_id=666983296]
-transform = Transform3D(1, 0, 0, 0, 0.70090926, 0.71325046, 0, -0.71325046, 0.70090926, 0, 3.64, 3.005)
+transform = Transform3D(1, 0, 0, 0, 0.8660254, 0.5, 0, -0.5, 0.8660254, 0, 3.98, 5.95)
 visible = false
+projection = 1
+size = 8.81
+near = 0.001
+far = 16.0
 script = ExtResource("1_0xm2m")
 target_path = NodePath("../../Player")
+follow_speed = 5.0
 
 [node name="Player" parent="." unique_id=555799970 instance=ExtResource("1_ig7tw")]
 
