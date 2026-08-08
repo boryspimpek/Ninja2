@@ -1,52 +1,5 @@
 extends CharacterBody3D
 
-# ============================================================
-# KONFIGURACJA
-# ============================================================
-#
-# INPUT MAP:
-#
-# move_left    -> Joypad Axis: Left Stick X, wartość ujemna
-# move_right   -> Joypad Axis: Left Stick X, wartość dodatnia
-# move_forward -> Joypad Axis: Left Stick Y, wartość ujemna
-# move_back    -> Joypad Axis: Left Stick Y, wartość dodatnia
-# attack       -> Joypad Button: Square
-#
-# ANIMATION TREE:
-#
-# Top-level:
-# Start -> Locomotion
-#
-# Locomotion = BlendSpace1D
-# 0 = Idle
-# 1 = Run
-#
-# Locomotion -> Combat
-# Combat -> Locomotion
-#
-# Combat = nested StateMachine
-#
-# Wewnątrz Combat:
-#
-# Start -> Attacks_attack1_strike
-#
-# Attacks_attack1_strike -> Attacks_attack1_recovery
-# Attacks_attack1_strike -> Attacks_attack2_strike
-#
-# Attacks_attack1_recovery -> Attacks_attack1_strike
-#
-# Attacks_attack2_strike -> Attacks_attack1_strike
-#
-# Wszystkie przejścia:
-# Switch Mode = Immediate
-# Xfade = około 0.05 - 0.1
-#
-# Nie potrzebujemy Windup.
-# Nie potrzebujemy przejść do End.
-# Decyzję podejmuje skrypt.
-# ============================================================
-
-
 @export var move_speed: float = 5.0
 @export var acceleration: float = 10.0
 @export var rotation_speed: float = 10.0
