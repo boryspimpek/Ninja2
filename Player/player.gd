@@ -167,6 +167,18 @@ func _is_attack_buffer_window_open() -> bool:
 	return remaining_time <= attack_buffer_time
 
 
+func _rotate_to_attack_direction() -> void:
+	if queued_attack_direction.length() < 0.1:
+		return
+
+	var attack_angle := atan2(
+		queued_attack_direction.x,
+		queued_attack_direction.y
+	)
+
+	rotation.y = attack_angle
+
+
 # ============================================================
 # ANIMATION FINISHED
 # ============================================================
@@ -188,6 +200,9 @@ func _on_animation_finished(anim_name: StringName) -> void:
 				# Kliknięto podczas Attack1.
 				#
 				# Attack1 -> Attack2
+
+				_rotate_to_attack_direction()
+
 				combat_playback.travel(
 					"Attacks_attack2_strike"
 				)
@@ -242,6 +257,9 @@ func _on_animation_finished(anim_name: StringName) -> void:
 				# Kliknięto podczas Attack2.
 				#
 				# Attack2 -> Attack3
+				
+				_rotate_to_attack_direction()
+				
 				combat_playback.travel(
 					"Attacks_attack3"
 				)
@@ -267,6 +285,9 @@ func _on_animation_finished(anim_name: StringName) -> void:
 				# Kliknięto podczas Attack3.
 				#
 				# Attack3 -> Attack4
+				
+				_rotate_to_attack_direction()
+				
 				combat_playback.travel(
 					"Attacks_attack4"
 				)
@@ -292,6 +313,9 @@ func _on_animation_finished(anim_name: StringName) -> void:
 				# Kliknięto podczas Attack4.
 				#
 				# Attack4 -> Attack1
+
+				_rotate_to_attack_direction()
+
 				combat_playback.travel(
 					"Attacks_attack1_strike"
 				)
