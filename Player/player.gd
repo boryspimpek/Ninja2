@@ -25,6 +25,7 @@ var in_combat: bool = false
 #         należy przejść do kolejnego ataku.
 var queued_attack: bool = false
 var queued_attack_direction: Vector2 = Vector2.ZERO
+var target_attack_rotation: float = 0.0
 
 
 func _ready() -> void:
@@ -37,6 +38,13 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	_handle_movement(delta)
 	_handle_attack_input()
+
+	if in_combat:
+		rotation.y = lerp_angle(
+			rotation.y,
+			target_attack_rotation,
+			rotation_speed * delta
+		)
 
 	move_and_slide()
 
@@ -151,6 +159,9 @@ func _start_combat() -> void:
 	in_combat = true
 	queued_attack = false
 
+	queued_attack_direction = Vector2.ZERO
+	target_attack_rotation = rotation.y
+	
 	# Natychmiast zatrzymujemy ruch.
 	velocity.x = 0.0
 	velocity.z = 0.0
@@ -171,13 +182,10 @@ func _rotate_to_attack_direction() -> void:
 	if queued_attack_direction.length() < 0.1:
 		return
 
-	var attack_angle := atan2(
+	target_attack_rotation = atan2(
 		queued_attack_direction.x,
 		queued_attack_direction.y
 	)
-
-	rotation.y = attack_angle
-
 
 # ============================================================
 # ANIMATION FINISHED
@@ -338,5 +346,6 @@ func _exit_combat() -> void:
 
 	in_combat = false
 	queued_attack = false
+	queued_attack_direction = Vector2.ZERO
 
 	top_playback.travel("Locomotion")
