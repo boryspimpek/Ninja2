@@ -1,0 +1,21 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://wgthf5b2wkiq"]
+
+[ext_resource type="Texture2D" uid="uid://t68fr306tsin" path="res://Texture/bricks_wall_07_1k/bricks_wall_07_baseColor_1k.png" id="1_nvn6n"]
+[ext_resource type="Texture2D" uid="uid://c41nh0gjejqcb" path="res://Texture/bricks_wall_07_1k/bricks_wall_07_height_1k.png" id="2_vc2do"]
+[ext_resource type="Texture2D" uid="uid://s4m2c4ko2eaa" path="res://Texture/bricks_wall_07_1k/bricks_wall_07_metallic_1k.png" id="3_uxd3t"]
+[ext_resource type="Texture2D" uid="uid://bb3ypq6lklkcd" path="res://Texture/bricks_wall_07_1k/bricks_wall_07_normal_gl_1k.png" id="4_7fplh"]
+[ext_resource type="Texture2D" uid="uid://dt1r2vv6b20gl" path="res://Texture/bricks_wall_07_1k/bricks_wall_07_roughness_1k.png" id="5_sj06f"]
+
+[resource]
+albedo_texture = ExtResource("1_nvn6n")
+metallic_specular = 0.0
+metallic_texture = ExtResource("3_uxd3t")
+roughness = 0.3
+roughness_texture = ExtResource("5_sj06f")
+normal_enabled = true
+normal_scale = 3.19
+normal_texture = ExtResource("4_7fplh")
+heightmap_enabled = true
+heightmap_texture = ExtResource("2_vc2do")
+uv1_scale = Vector3(0.5, 0.5, 0.5)
+uv1_triplanar = true

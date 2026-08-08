@@ -1,6 +1,8 @@
 [gd_scene format=3 uid="uid://biyrfoeihxadm"]
 
+[ext_resource type="Script" uid="uid://ds1h7q1fo4isy" path="res://Player/camera_follow.gd" id="1_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://bs408c2ngi0vu" path="res://Player/player.tscn" id="1_ig7tw"]
+[ext_resource type="PackedScene" uid="uid://bus05ufw06nsg" path="res://arena.tscn" id="3_h2yge"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_7dm0k"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -15,13 +17,6 @@ sky = SubResource("Sky_ig7tw")
 tonemap_mode = 2
 glow_enabled = true
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7dm0k"]
-albedo_color = Color(0.072842635, 0.072842635, 0.072842635, 1)
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_ig7tw"]
-material = SubResource("StandardMaterial3D_7dm0k")
-size = Vector2(20, 20)
-
 [node name="Main" type="Node3D" unique_id=306972584]
 
 [node name="World" type="Node3D" parent="." unique_id=1464091780]
@@ -34,11 +29,11 @@ transform = Transform3D(-0.7933533, -0.4073409, -0.4523979, 0, -0.7431448, 0.669
 shadow_enabled = true
 
 [node name="Camera3D" type="Camera3D" parent="World" unique_id=666983296]
-transform = Transform3D(1, 0, 0, 0, 0.94832367, 0.31730464, 0, -0.31730464, 0.94832367, 0, 1.215, 1.765)
+transform = Transform3D(1, 0, 0, 0, 0.70090926, 0.71325046, 0, -0.71325046, 0.70090926, 0, 3.64, 3.005)
 visible = false
-
-[node name="Ground" type="MeshInstance3D" parent="." unique_id=1367744037]
-mesh = SubResource("PlaneMesh_ig7tw")
-metadata/_edit_lock_ = true
+script = ExtResource("1_0xm2m")
+target_path = NodePath("../../Player")
 
 [node name="Player" parent="." unique_id=555799970 instance=ExtResource("1_ig7tw")]
+
+[node name="Arena" parent="." unique_id=1687742287 instance=ExtResource("3_h2yge")]
