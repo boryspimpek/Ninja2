@@ -24,6 +24,7 @@ var in_combat: bool = false
 # true  = kliknięto i po zakończeniu aktualnej animacji
 #         należy przejść do kolejnego ataku.
 var queued_attack: bool = false
+var queued_attack_direction: Vector2 = Vector2.ZERO
 
 
 func _ready() -> void:
@@ -132,7 +133,14 @@ func _handle_attack_input() -> void:
 	# tylko w ostatnich 0.3 sekundy animacji.
 	if _is_attack_buffer_window_open():
 		queued_attack = true
+		queued_attack_direction = Input.get_vector(
+			"move_left",
+			"move_right",
+			"move_forward",
+			"move_back"
+		)
 
+		print("QUEUED ATTACK DIRECTION: ", queued_attack_direction)
 
 # ============================================================
 # START COMBAT
