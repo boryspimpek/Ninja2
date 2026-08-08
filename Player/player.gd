@@ -113,6 +113,14 @@ func _handle_attack_input() -> void:
 	if not Input.is_action_just_pressed("attack"):
 		return
 
+	var direction := Input.get_vector(
+		"move_left",
+		"move_right",
+		"move_forward",
+		"move_back"
+	)
+
+	print("Attack direction: ", direction)
 
 	# Pierwsze kliknięcie rozpoczyna combat.
 	if not in_combat:
@@ -149,7 +157,7 @@ func _is_attack_buffer_window_open() -> bool:
 	var remaining_time := animation_length - current_position
 
 	return remaining_time <= attack_buffer_time
-	
+
 
 # ============================================================
 # ANIMATION FINISHED
@@ -158,16 +166,6 @@ func _is_attack_buffer_window_open() -> bool:
 func _on_animation_finished(anim_name: StringName) -> void:
 
 	var animation := String(anim_name)
-
-	print(
-		"DEBUG anim_finished: '",
-		animation,
-		"' | current_node: '",
-		combat_playback.get_current_node(),
-		"' | queued: ",
-		queued_attack
-	)
-
 
 	match animation:
 
