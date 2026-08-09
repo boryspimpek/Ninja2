@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://deic1yrf7h4br"]
+
+[ext_resource type="ArrayMesh" uid="uid://c4o2k0ks0ojpg" path="res://vfx/Blood/models/blood_cone_b.obj" id="5_tefeu"]
+[ext_resource type="Material" uid="uid://du6h7i2cr5wvm" path="res://vfx/Blood/materials/blood_material.tres" id="6_o6xl0"]
+[ext_resource type="Material" uid="uid://bqpyt5y2sa43h" path="res://vfx/Blood/particle_materials/custom_particle_system_blood.tres" id="7_tipki"]
+
+[node name="CustomParticleSystemBlood" type="GPUParticles3D" unique_id=2023544185]
+material_override = ExtResource("6_o6xl0")
+cast_shadow = 0
+emitting = false
+amount = 14
+lifetime = 0.75
+one_shot = true
+randomness = 1.0
+fixed_fps = 60
+process_material = ExtResource("7_tipki")
+draw_pass_1 = ExtResource("5_tefeu")
