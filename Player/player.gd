@@ -8,8 +8,6 @@ extends CharacterBody3D
 @export var dash_speed: float = 20.0
 @export var dash_duration: float = 0.15
 
-@export var footstep_speed_threshold: float = 0.1
-
 
 @onready var anim_tree: AnimationTree = $AnimationTree
 @onready var anim_player: AnimationPlayer = $AnimationPlayer
@@ -130,7 +128,7 @@ func _handle_movement(delta: float) -> void:
 
 
 func _update_footstep_audio(speed_ratio: float) -> void:
-	var is_moving := speed_ratio > footstep_speed_threshold
+	var is_moving := speed_ratio > 0.1
 
 	if is_moving and not footstep_player.playing:
 		footstep_player.play()

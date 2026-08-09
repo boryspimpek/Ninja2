@@ -395,7 +395,21 @@ tracks/54/path = NodePath("EffortSounds/d")
 tracks/54/interp = 1
 tracks/54/loop_wrap = true
 tracks/54/keys = {
-"times": PackedFloat32Array(0.56666666),
+"times": PackedFloat32Array(1.1666666),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}]
+}
+tracks/55/type = "method"
+tracks/55/imported = false
+tracks/55/enabled = true
+tracks/55/path = NodePath("EffortSounds/e")
+tracks/55/interp = 1
+tracks/55/loop_wrap = true
+tracks/55/keys = {
+"times": PackedFloat32Array(0.46666667),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [0.0],
