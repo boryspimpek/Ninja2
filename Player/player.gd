@@ -122,15 +122,6 @@ func _handle_attack_input() -> void:
 	if not Input.is_action_just_pressed("attack"):
 		return
 
-	var direction := Input.get_vector(
-		"move_left",
-		"move_right",
-		"move_forward",
-		"move_back"
-	)
-
-	print("Attack direction: ", direction)
-
 	# Pierwsze kliknięcie rozpoczyna combat.
 	if not in_combat:
 		_start_combat()
