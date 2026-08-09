@@ -34,7 +34,7 @@ directional_shadow_split_1 = 0.053
 directional_shadow_max_distance = 130.0
 
 [node name="Camera3D" type="Camera3D" parent="World" unique_id=666983296]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6.255)
+transform = Transform3D(1, 0, 0, 0, 0.96363044, 0.26723838, 0, -0.26723838, 0.96363044, 0, 3.06, 6.255)
 visible = false
 projection = 1
 size = 5.935

@@ -2,7 +2,7 @@
 
 [resource]
 resource_name = "mixamo_com"
-length = 0.8666667
+length = 0.75
 tracks/0/type = "position_3d"
 tracks/0/imported = true
 tracks/0/enabled = true
