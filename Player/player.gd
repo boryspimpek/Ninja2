@@ -4,12 +4,16 @@ extends CharacterBody3D
 @export var acceleration: float = 10.0
 @export var rotation_speed: float = 10.0
 @export var attack_buffer_time: float = 0.3
+
 @export var dash_speed: float = 20.0
 @export var dash_duration: float = 0.15
 
+@export var footstep_speed_threshold: float = 0.1
+
+
 @onready var anim_tree: AnimationTree = $AnimationTree
 @onready var anim_player: AnimationPlayer = $AnimationPlayer
-
+@onready var footstep_player: AudioStreamPlayer3D = $FootstepSound
 
 var top_playback: AnimationNodeStateMachinePlayback
 var combat_playback: AnimationNodeStateMachinePlayback
@@ -121,6 +125,17 @@ func _handle_movement(delta: float) -> void:
 		"parameters/Locomotion/blend_position",
 		speed_ratio
 	)
+
+	_update_footstep_audio(speed_ratio)
+
+
+func _update_footstep_audio(speed_ratio: float) -> void:
+	var is_moving := speed_ratio > footstep_speed_threshold
+
+	if is_moving and not footstep_player.playing:
+		footstep_player.play()
+	elif not is_moving and footstep_player.playing:
+		footstep_player.stop()
 
 
 func _handle_dash_input() -> void:
