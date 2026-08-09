@@ -58,4 +58,15 @@ size = Vector3(1, 1, 20)
 [node name="Vault" type="CSGBox3D" parent="." unique_id=758445341]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0.25, 0)
 material_override = SubResource("StandardMaterial3D_h0wof")
+use_collision = true
 size = Vector3(0.5, 0.5, 1)
+
+[node name="Dummy" type="CSGCylinder3D" parent="." unique_id=1463098420]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.9716878, 1, -4.0783663)
+use_collision = true
+radius = 0.03857422
+
+[node name="Dummy2" type="CSGCylinder3D" parent="." unique_id=1725659754]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9716878, 1, -4.0783663)
+use_collision = true
+radius = 0.03857422
