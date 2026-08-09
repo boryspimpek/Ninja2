@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cnei5n3uhvmwy"
+path="res://.godot/imported/Moonlit Shinobi Oath.mp3-729d449b89e6f39963a2ab78e2277b3e.mp3str"
+
+[deps]
+
+source_file="res://Sounds/soundtrack/Moonlit Shinobi Oath.mp3"
+dest_files=["res://.godot/imported/Moonlit Shinobi Oath.mp3-729d449b89e6f39963a2ab78e2277b3e.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
