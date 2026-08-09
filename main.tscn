@@ -13,7 +13,6 @@ ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
 sky_material = SubResource("ProceduralSkyMaterial_7dm0k")
 
 [sub_resource type="Environment" id="Environment_0xm2m"]
-background_mode = 2
 sky = SubResource("Sky_ig7tw")
 tonemap_mode = 3
 glow_enabled = true
@@ -27,14 +26,14 @@ adjustment_enabled = true
 environment = SubResource("Environment_0xm2m")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="World" unique_id=1810642106]
-transform = Transform3D(-0.5075383, 0.5064529, 0.6970726, -7.0726514e-08, -0.809017, 0.58778524, 0.8616291, 0.29832348, 0.4106072, 0, 10, 0)
+transform = Transform3D(-0.38268334, -0.5430428, -0.7474342, 7.072651e-08, -0.809017, 0.58778524, -0.92387944, 0.22493559, 0.3095974, 0, 10, 0)
 shadow_enabled = true
 directional_shadow_mode = 1
 directional_shadow_split_1 = 0.053
 directional_shadow_max_distance = 130.0
 
 [node name="Camera3D" type="Camera3D" parent="World" unique_id=666983296]
-transform = Transform3D(1, 0, 0, 0, 0.96363044, 0.26723838, 0, -0.26723838, 0.96363044, 0, 3.06, 6.255)
+transform = Transform3D(1, 0, 0, 0, 0.8660254, 0.5, 0, -0.5, 0.8660254, 0, 4.825, 6.255)
 visible = false
 projection = 1
 size = 5.935

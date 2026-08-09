@@ -14,6 +14,11 @@ config/name="Ninja2"
 run/main_scene="uid://biyrfoeihxadm"
 config/features=PackedStringArray("4.6", "Forward Plus")
 
+[debug]
+
+shapes/navigation/3d/geometry_edge_color=Color(0, 0, 1, 1)
+shapes/navigation/3d/geometry_face_color=Color(0.5019608, 0, 1, 1)
+
 [display]
 
 window/size/always_on_top=true

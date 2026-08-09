@@ -56,10 +56,40 @@ use_collision = true
 size = Vector3(1, 1, 20)
 
 [node name="Vault" type="CSGBox3D" parent="." unique_id=758445341]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.75, 0.5, 0)
+transform = Transform3D(0.7071067, 0, -0.7071068, 0, 1, 0, 0.7071068, 0, 0.7071067, -2.0428932, 0.5, -2.2928934)
 material_override = SubResource("StandardMaterial3D_h0wof")
 use_collision = true
 size = Vector3(1, 1, 3)
+
+[node name="Vault2" type="CSGBox3D" parent="." unique_id=1392139374]
+transform = Transform3D(0.7071067, 0, -0.7071068, 0, 1, 0, 0.7071068, 0, 0.7071067, -2.75, 1.5, -3)
+material_override = SubResource("StandardMaterial3D_h0wof")
+use_collision = true
+size = Vector3(1, 1, 3)
+
+[node name="Vault3" type="CSGBox3D" parent="." unique_id=28253528]
+transform = Transform3D(0.7071067, 0, -0.7071068, 0, 1, 0, 0.7071068, 0, 0.7071067, -3.4571068, 2.5, -3.7071066)
+material_override = SubResource("StandardMaterial3D_h0wof")
+use_collision = true
+size = Vector3(1, 1, 3)
+
+[node name="Vault4" type="CSGBox3D" parent="." unique_id=656536269]
+transform = Transform3D(0.86602527, 0, -0.5, 0, 1, 0, 0.5, 0, 0.86602527, -0.5179492, 0.5, 2.9999998)
+material_override = SubResource("StandardMaterial3D_h0wof")
+use_collision = true
+size = Vector3(2, 1, 3)
+
+[node name="Vault5" type="CSGBox3D" parent="." unique_id=581502477]
+transform = Transform3D(0.86602527, 0, -0.5, 0, 1, 0, 0.5, 0, 0.86602527, -2.25, 0.6, 2)
+material_override = SubResource("StandardMaterial3D_h0wof")
+use_collision = true
+size = Vector3(2, 1, 3)
+
+[node name="Vault6" type="CSGBox3D" parent="." unique_id=819966083]
+transform = Transform3D(0.86602527, 0, -0.5, 0, 1, 0, 0.5, 0, 0.86602527, -3.982051, 0.7, 1)
+material_override = SubResource("StandardMaterial3D_h0wof")
+use_collision = true
+size = Vector3(2, 1, 3)
 
 [node name="Dummy" type="CSGCylinder3D" parent="." unique_id=1463098420]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.9716878, 1, -4.0783663)
