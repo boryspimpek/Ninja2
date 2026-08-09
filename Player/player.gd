@@ -4,7 +4,8 @@ extends CharacterBody3D
 @export var acceleration: float = 10.0
 @export var rotation_speed: float = 10.0
 @export var attack_buffer_time: float = 0.3
-
+@export var dash_speed: float = 20.0
+@export var dash_duration: float = 0.15
 
 @onready var anim_tree: AnimationTree = $AnimationTree
 @onready var anim_player: AnimationPlayer = $AnimationPlayer
@@ -27,6 +28,10 @@ var queued_attack: bool = false
 var queued_attack_direction: Vector2 = Vector2.ZERO
 var target_attack_rotation: float = 0.0
 
+var is_dashing: bool = false
+var dash_timer: float = 0.0
+var dash_direction: Vector3 = Vector3.ZERO
+
 
 func _ready() -> void:
 	top_playback = anim_tree.get("parameters/playback")
@@ -36,8 +41,13 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
-	_handle_movement(delta)
-	_handle_attack_input()
+	_handle_dash_input()
+
+	if is_dashing:
+		_handle_dash(delta)
+	else:
+		_handle_movement(delta)
+		_handle_attack_input()
 
 	if in_combat:
 		rotation.y = lerp_angle(
@@ -111,6 +121,64 @@ func _handle_movement(delta: float) -> void:
 		"parameters/Locomotion/blend_position",
 		speed_ratio
 	)
+
+
+func _handle_dash_input() -> void:
+	if not Input.is_action_just_pressed("dash"):
+		return
+
+	if is_dashing:
+		return
+
+	_start_dash()
+
+
+func _handle_dash(delta: float) -> void:
+	dash_timer -= delta
+
+	velocity = dash_direction * dash_speed
+
+	if dash_timer <= 0.0:
+		is_dashing = false
+
+		velocity.x = 0.0
+		velocity.z = 0.0
+
+
+func _start_dash() -> void:
+	var input_dir := Input.get_vector(
+		"move_left",
+		"move_right",
+		"move_forward",
+		"move_back"
+	)
+
+	if input_dir.length() > 0.1:
+		dash_direction = Vector3(
+			input_dir.x,
+			0.0,
+			input_dir.y
+		).normalized()
+	else:
+		dash_direction = Vector3(
+			sin(rotation.y),
+			0.0,
+			cos(rotation.y)
+		).normalized()
+
+	in_combat = false
+	queued_attack = false
+	queued_attack_direction = Vector2.ZERO
+
+	rotation.y = atan2(
+		dash_direction.x,
+		dash_direction.z
+	)
+
+	is_dashing = true
+	dash_timer = dash_duration
+
+	top_playback.travel("Locomotion")
 
 
 # ============================================================
