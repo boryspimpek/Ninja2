@@ -1,0 +1,13 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://bqpyt5y2sa43h"]
+
+[ext_resource type="Shader" uid="uid://cyvyq3et8iscp" path="res://shaders/particles/blood_spray.gdshader" id="1_yvm4w"]
+
+[resource]
+shader = ExtResource("1_yvm4w")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/scale_initial = 0.05
+shader_parameter/scale_add = 0.75
+shader_parameter/grav = Vector3(0, -9.8, 0)
+shader_parameter/initial_velocity = 5.0
+shader_parameter/vel_damping = 1.0
+shader_parameter/spread = 0.165

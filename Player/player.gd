@@ -144,6 +144,7 @@ func _handle_dash(delta: float) -> void:
 		velocity.x = 0.0
 		velocity.z = 0.0
 
+		top_playback.travel("Locomotion")
 
 func _start_dash() -> void:
 	var input_dir := Input.get_vector(
@@ -178,7 +179,7 @@ func _start_dash() -> void:
 	is_dashing = true
 	dash_timer = dash_duration
 
-	top_playback.travel("Locomotion")
+	top_playback.travel("Moves_dash")
 
 
 # ============================================================

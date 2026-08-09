@@ -1,0 +1,16 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://du6h7i2cr5wvm"]
+
+[ext_resource type="Texture2D" uid="uid://b2hdpbds3exax" path="res://textures/blood_albedo.png" id="1_8aqnv"]
+[ext_resource type="Texture2D" uid="uid://j2p7fwfhuawk" path="res://textures/blood_normal.png" id="2_ktxpl"]
+
+[resource]
+transparency = 2
+alpha_scissor_threshold = 0.1
+alpha_antialiasing_mode = 0
+cull_mode = 2
+vertex_color_use_as_albedo = true
+vertex_color_is_srgb = true
+albedo_color = Color(1, 0, 0, 1)
+albedo_texture = ExtResource("1_8aqnv")
+normal_enabled = true
+normal_texture = ExtResource("2_ktxpl")

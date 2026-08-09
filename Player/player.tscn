@@ -119,7 +119,7 @@ xfade_time = 0.2
 xfade_time = 0.2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_lfmf2"]
-xfade_time = 0.2
+xfade_time = 0.05
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_j5n4i"]
 states/Combat/node = SubResource("AnimationNodeStateMachine_7lmhl")
@@ -140,6 +140,8 @@ transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 script = ExtResource("2_n7ghd")
 move_speed = 4.0
 acceleration = 50.0
+dash_speed = 14.0
+dash_duration = 0.3
 
 [node name="Skeleton3D" parent="." index="0" unique_id=1278624414]
 bones/0/position = Vector3(-0.0053033736, 0.35087836, 0.007082373)

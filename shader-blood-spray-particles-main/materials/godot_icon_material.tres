@@ -1,0 +1,10 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://tt2trqeuw07p"]
+
+[ext_resource type="Texture2D" uid="uid://dkomybbqrs8k1" path="res://icon.svg" id="1_boc4e"]
+
+[resource]
+transparency = 1
+cull_mode = 2
+vertex_color_use_as_albedo = true
+vertex_color_is_srgb = true
+albedo_texture = ExtResource("1_boc4e")
