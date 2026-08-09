@@ -34,17 +34,15 @@ directional_shadow_split_1 = 0.053
 directional_shadow_max_distance = 130.0
 
 [node name="Camera3D" type="Camera3D" parent="World" unique_id=666983296]
-transform = Transform3D(1, 0, 0, 0, 0.8660254, 0.5, 0, -0.5, 0.8660254, 0, 3.98, 5.95)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6.255)
 visible = false
 projection = 1
-size = 8.81
+size = 5.935
 near = 0.001
 far = 16.0
 script = ExtResource("1_0xm2m")
 target_path = NodePath("../../Player")
 follow_speed = 5.0
-
-[node name="Player" parent="." unique_id=555799970 instance=ExtResource("1_ig7tw")]
 
 [node name="Arena" parent="." unique_id=1687742287 instance=ExtResource("3_h2yge")]
 
@@ -52,3 +50,5 @@ follow_speed = 5.0
 stream = ExtResource("4_1bvp3")
 volume_db = -20.451
 autoplay = true
+
+[node name="Player" parent="." unique_id=429602929 instance=ExtResource("1_ig7tw")]

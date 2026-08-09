@@ -8,6 +8,9 @@ extends CharacterBody3D
 @export var dash_speed: float = 20.0
 @export var dash_duration: float = 0.15
 
+@export var jump_velocity: float = 8.0
+@export var gravity: float = 20.0
+
 
 @onready var anim_tree: AnimationTree = $AnimationTree
 @onready var anim_player: AnimationPlayer = $AnimationPlayer
@@ -15,6 +18,7 @@ extends CharacterBody3D
 
 var top_playback: AnimationNodeStateMachinePlayback
 var combat_playback: AnimationNodeStateMachinePlayback
+var is_jumping: bool = false
 
 
 # Czy aktualnie jesteśmy w systemie ataku.
@@ -43,7 +47,9 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
+	_apply_gravity(delta)
 	_handle_dash_input()
+	_handle_jump_input()
 
 	if is_dashing:
 		_handle_dash(delta)
@@ -59,6 +65,8 @@ func _physics_process(delta: float) -> void:
 		)
 
 	move_and_slide()
+
+	_check_jump_landing()
 
 
 # ============================================================
@@ -128,13 +136,13 @@ func _handle_movement(delta: float) -> void:
 
 
 func _update_footstep_audio(speed_ratio: float) -> void:
-	var is_moving := speed_ratio > 0.1
+	var is_moving := speed_ratio > 0.1 and is_on_floor()
 
 	if is_moving and not footstep_player.playing:
 		footstep_player.play()
 	elif not is_moving and footstep_player.playing:
 		footstep_player.stop()
-
+		
 
 func _handle_dash_input() -> void:
 	if not Input.is_action_just_pressed("dash"):
@@ -193,6 +201,39 @@ func _start_dash() -> void:
 	dash_timer = dash_duration
 
 	top_playback.travel("Moves_dash")
+
+
+func _apply_gravity(delta: float) -> void:
+	if not is_on_floor():
+		velocity.y -= gravity * delta
+	elif velocity.y < 0.0:
+		velocity.y = 0.0
+
+
+func _handle_jump_input() -> void:
+	if not Input.is_action_just_pressed("jump"):
+		return
+
+	if not is_on_floor():
+		return
+
+	if is_dashing or in_combat or is_jumping:
+		return
+
+	_start_jump()
+
+
+func _start_jump() -> void:
+	is_jumping = true
+	velocity.y = jump_velocity
+
+	top_playback.travel("Moves_jump")
+
+
+func _check_jump_landing() -> void:
+	if is_jumping and is_on_floor() and velocity.y <= 0.0:
+		is_jumping = false
+		top_playback.travel("Locomotion")
 
 
 # ============================================================
