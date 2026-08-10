@@ -355,7 +355,7 @@ func _on_animation_finished(anim_name: StringName) -> void:
 				#
 				# Recovery -> Attack1
 				combat_playback.travel(
-					"Attacks_attack1_strike"
+					"Attacks_attack2_strike"
 				)
 
 				queued_attack = false

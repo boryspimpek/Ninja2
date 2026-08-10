@@ -2,7 +2,7 @@
 
 [resource]
 resource_name = "attack1_strice"
-length = 0.6666666
+length = 0.833
 tracks/0/type = "position_3d"
 tracks/0/imported = true
 tracks/0/enabled = true
