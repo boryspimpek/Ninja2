@@ -99,47 +99,28 @@ nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_iyprq")
 nodes/TimeScale/position = Vector2(560, 160)
 node_connections = [&"output", 0, &"TimeScale", &"TimeScale", 0, &"StateMachine"]
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_bbimk"]
-animation = &"Moves/run"
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_i4o1l"]
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_8viyr"]
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_m0h3t"]
 animation = &"Moves/idle"
 
-[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_i4o1l"]
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_qemgg"]
-animation = &"Moves/idle"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_755ss"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_bbimk"]
 animation = &"Moves/run"
 
-[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_bbimk"]
-blend_point_0/node = SubResource("AnimationNodeAnimation_qemgg")
-blend_point_0/pos = 0.0
-blend_point_1/node = SubResource("AnimationNodeAnimation_755ss")
-blend_point_1/pos = 1.0
-min_space = 0.0
-
-[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_8viyr"]
-
-[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_qemgg"]
-
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_m0h3t"]
-graph_offset = Vector2(115, -4)
+graph_offset = Vector2(326, 0)
 nodes/output/position = Vector2(1160, 160)
-nodes/Move_copy/node = SubResource("AnimationNodeBlendSpace1D_bbimk")
-nodes/Move_copy/position = Vector2(220, 160)
-nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_qemgg")
-nodes/TimeScale/position = Vector2(420, 240)
-nodes/Move/node = SubResource("AnimationNodeBlend2_i4o1l")
-nodes/Move/position = Vector2(940, 140)
-nodes/Animation/node = SubResource("AnimationNodeAnimation_m0h3t")
-nodes/Animation/position = Vector2(600, 100)
-"nodes/Animation 2/node" = SubResource("AnimationNodeAnimation_bbimk")
-"nodes/Animation 2/position" = Vector2(600, 280)
 "nodes/TimeScale 2/node" = SubResource("AnimationNodeTimeScale_8viyr")
 "nodes/TimeScale 2/position" = Vector2(780, 280)
-node_connections = [&"output", 0, &"Move", &"TimeScale", 0, &"Move_copy", &"Move", 0, &"Animation", &"Move", 1, &"TimeScale 2", &"TimeScale 2", 0, &"Animation 2"]
+nodes/run/node = SubResource("AnimationNodeAnimation_bbimk")
+nodes/run/position = Vector2(600, 280)
+nodes/Move/node = SubResource("AnimationNodeBlend2_i4o1l")
+nodes/Move/position = Vector2(940, 140)
+nodes/idle/node = SubResource("AnimationNodeAnimation_m0h3t")
+nodes/idle/position = Vector2(600, 100)
+node_connections = [&"output", 0, &"Move", &"TimeScale 2", 0, &"run", &"Move", 0, &"idle", &"Move", 1, &"TimeScale 2"]
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_pisgm"]
 animation = &"Moves/dash"
@@ -168,18 +149,22 @@ xfade_time = 0.2
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_jp1hh"]
 xfade_time = 0.2
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_qs4pp"]
+xfade_time = 0.2
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_j5n4i"]
 states/Combat/node = SubResource("AnimationNodeBlendTree_f4lon")
-states/Combat/position = Vector2(285, 291)
+states/Combat/position = Vector2(305, 291)
+states/End/position = Vector2(1072, 121)
 states/Locomotion/node = SubResource("AnimationNodeBlendTree_m0h3t")
-states/Locomotion/position = Vector2(498, 112)
+states/Locomotion/position = Vector2(500, 11)
 states/Moves_dash/node = SubResource("AnimationNodeAnimation_pisgm")
-states/Moves_dash/position = Vector2(498, 291)
+states/Moves_dash/position = Vector2(574, 291)
 states/Moves_jump/node = SubResource("AnimationNodeAnimation_8mwp6")
-states/Moves_jump/position = Vector2(690, 291)
-states/Start/position = Vector2(93, 112)
-transitions = ["Combat", "Moves_dash", SubResource("AnimationNodeStateMachineTransition_8viyr"), "Start", "Locomotion", SubResource("AnimationNodeStateMachineTransition_qemgg"), "Locomotion", "Combat", SubResource("AnimationNodeStateMachineTransition_sm0op"), "Combat", "Locomotion", SubResource("AnimationNodeStateMachineTransition_76lrf"), "Locomotion", "Moves_dash", SubResource("AnimationNodeStateMachineTransition_efx54"), "Locomotion", "Moves_jump", SubResource("AnimationNodeStateMachineTransition_bbimk"), "Moves_jump", "Locomotion", SubResource("AnimationNodeStateMachineTransition_jp1hh")]
-graph_offset = Vector2(-123, -53)
+states/Moves_jump/position = Vector2(743, 291)
+states/Start/position = Vector2(305, 11)
+transitions = ["Combat", "Moves_dash", SubResource("AnimationNodeStateMachineTransition_8viyr"), "Start", "Locomotion", SubResource("AnimationNodeStateMachineTransition_qemgg"), "Locomotion", "Combat", SubResource("AnimationNodeStateMachineTransition_sm0op"), "Combat", "Locomotion", SubResource("AnimationNodeStateMachineTransition_76lrf"), "Locomotion", "Moves_dash", SubResource("AnimationNodeStateMachineTransition_efx54"), "Locomotion", "Moves_jump", SubResource("AnimationNodeStateMachineTransition_bbimk"), "Moves_jump", "Locomotion", SubResource("AnimationNodeStateMachineTransition_jp1hh"), "Moves_dash", "Locomotion", SubResource("AnimationNodeStateMachineTransition_qs4pp")]
+graph_offset = Vector2(-96, -134)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_nvl01"]
 margin = 1.0
@@ -306,10 +291,8 @@ libraries/Moves = SubResource("AnimationLibrary_n7ghd")
 tree_root = SubResource("AnimationNodeStateMachine_j5n4i")
 anim_player = NodePath("../AnimationPlayer")
 parameters/Combat/TimeScale/scale = 1.5
-parameters/Locomotion/Move_copy/blend_position = 0.0
-parameters/Locomotion/TimeScale/scale = 2.0
+"parameters/Locomotion/TimeScale 2/scale" = 1.0
 parameters/Locomotion/Move/blend_amount = 1.0
-"parameters/Locomotion/TimeScale 2/scale" = 2.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." index="3" unique_id=1219553363]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4400385, 0)
