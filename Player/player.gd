@@ -1,34 +1,14 @@
 extends CharacterBody3D
 
-
-# ============================================================
-# MOVEMENT
-# ============================================================
-
 @export var move_speed: float = 5.0
 @export var acceleration: float = 10.0
 @export var rotation_speed: float = 10.0
 
-
-# ============================================================
-# DASH
-# ============================================================
-
 @export var dash_speed: float = 20.0
 @export var dash_duration: float = 0.15
 
-
-# ============================================================
-# JUMP
-# ============================================================
-
 @export var jump_velocity: float = 8.0
 @export var gravity: float = 20.0
-
-
-# ============================================================
-# ANIMATION / AUDIO
-# ============================================================
 
 @onready var anim_tree: AnimationTree = $AnimationTree
 @onready var anim_player: AnimationPlayer = $AnimationPlayer
@@ -36,80 +16,18 @@ extends CharacterBody3D
 
 var top_playback: AnimationNodeStateMachinePlayback
 var combat_playback: AnimationNodeStateMachinePlayback
-
-
-# ============================================================
-# JUMP STATE
-# ============================================================
-
 var is_jumping: bool = false
-
-
-# ============================================================
-# COMBAT STATE
-# ============================================================
-
-# Czy aktualnie jesteśmy w systemie ataku.
 var in_combat: bool = false
-
-
-# ============================================================
-# COMBO WINDOWS
-# ============================================================
-
-# Combo window:
-#
-# Mówi:
-# "Możesz już kliknąć następny atak."
-#
-# Kliknięcie podczas tego okna zostaje zapamiętane
-# w queued_attack.
 var combo_window_open: bool = false
-
-
-# Cancel window:
-#
-# Jest podzbiorem combo window.
-#
-# Mówi:
-# "Jeżeli input został już zbuforowany,
-#  możemy natychmiast przejść do następnego ataku."
-#
-# Jeżeli gracz kliknie bezpośrednio podczas cancel window,
-# następny atak również zostaje uruchomiony natychmiast.
 var cancel_window_open: bool = false
-
 var combo_window_attack: String = ""
 var cancel_window_attack: String = ""
-# ============================================================
-# INPUT BUFFER
-# ============================================================
-
-# Czy gracz kliknął następny atak podczas combo window.
 var queued_attack: bool = false
-
-
-# Kierunek zapisany w momencie kliknięcia.
 var queued_attack_direction: Vector2 = Vector2.ZERO
-
-
-# Kierunek, w który aktualnie chcemy obrócić postać.
 var target_attack_rotation: float = 0.0
-
-
-# ============================================================
-# DASH STATE
-# ============================================================
-
 var is_dashing: bool = false
 var dash_timer: float = 0.0
 var dash_direction: Vector3 = Vector3.ZERO
-
-
-# ============================================================
-# READY
-# ============================================================
-
 func _ready() -> void:
 
 	top_playback = anim_tree.get(
@@ -123,12 +41,6 @@ func _ready() -> void:
 	anim_tree.animation_finished.connect(
 		_on_animation_finished
 	)
-
-
-# ============================================================
-# PHYSICS
-# ============================================================
-
 func _physics_process(delta: float) -> void:
 
 	_apply_gravity(delta)
@@ -146,9 +58,6 @@ func _physics_process(delta: float) -> void:
 		_handle_movement(delta)
 		_handle_attack_input()
 
-
-	# Podczas combat postać płynnie obraca się
-	# w kierunku aktualnego ataku.
 	if in_combat:
 
 		rotation.y = lerp_angle(
@@ -161,11 +70,6 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 	_check_jump_landing()
-
-
-# ============================================================
-# MOVEMENT
-# ============================================================
 
 func _handle_movement(delta: float) -> void:
 
@@ -183,13 +87,9 @@ func _handle_movement(delta: float) -> void:
 		input_vec.y
 	)
 
-
-	# Podczas ataku postać jest całkowicie
-	# committed do animacji.
 	if in_combat:
 
 		move_dir = Vector3.ZERO
-
 
 	velocity.x = move_toward(
 		velocity.x,
@@ -203,8 +103,6 @@ func _handle_movement(delta: float) -> void:
 		acceleration * delta
 	)
 
-
-	# Obracamy postać tylko podczas normalnego poruszania.
 	if move_dir.length() > 0.1 and not in_combat:
 
 		var target_angle := atan2(
@@ -218,26 +116,17 @@ func _handle_movement(delta: float) -> void:
 			rotation_speed * delta
 		)
 
-
-	# Aktualizacja BlendSpace locomotion.
 	var speed_ratio := Vector2(
 		velocity.x,
 		velocity.z
 	).length() / move_speed
-
 
 	anim_tree.set(
 		"parameters/Locomotion/blend_position",
 		speed_ratio
 	)
 
-
 	_update_footstep_audio(speed_ratio)
-
-
-# ============================================================
-# FOOTSTEP AUDIO
-# ============================================================
 
 func _update_footstep_audio(speed_ratio: float) -> void:
 
@@ -255,11 +144,6 @@ func _update_footstep_audio(speed_ratio: float) -> void:
 
 		footstep_player.stop()
 
-
-# ============================================================
-# DASH INPUT
-# ============================================================
-
 func _handle_dash_input() -> void:
 
 	if not Input.is_action_just_pressed("dash"):
@@ -271,11 +155,6 @@ func _handle_dash_input() -> void:
 
 
 	_start_dash()
-
-
-# ============================================================
-# DASH
-# ============================================================
 
 func _handle_dash(delta: float) -> void:
 
@@ -295,11 +174,6 @@ func _handle_dash(delta: float) -> void:
 			"Locomotion"
 		)
 
-
-# ============================================================
-# START DASH
-# ============================================================
-
 func _start_dash() -> void:
 
 	var input_dir := Input.get_vector(
@@ -308,7 +182,6 @@ func _start_dash() -> void:
 		"move_forward",
 		"move_back"
 	)
-
 
 	if input_dir.length() > 0.1:
 
@@ -326,11 +199,6 @@ func _start_dash() -> void:
 			cos(rotation.y)
 		).normalized()
 
-
-	# --------------------------------------------------------
-	# DASH RESETUJE COMBAT
-	# --------------------------------------------------------
-
 	in_combat = false
 
 	queued_attack = false
@@ -339,26 +207,17 @@ func _start_dash() -> void:
 	combo_window_open = false
 	cancel_window_open = false
 
-
-	# Obracamy postać w kierunku dasha.
 	rotation.y = atan2(
 		dash_direction.x,
 		dash_direction.z
 	)
 
-
 	is_dashing = true
 	dash_timer = dash_duration
-
 
 	top_playback.travel(
 		"Moves_dash"
 	)
-
-
-# ============================================================
-# GRAVITY
-# ============================================================
 
 func _apply_gravity(delta: float) -> void:
 
@@ -369,11 +228,6 @@ func _apply_gravity(delta: float) -> void:
 	elif velocity.y < 0.0:
 
 		velocity.y = 0.0
-
-
-# ============================================================
-# JUMP INPUT
-# ============================================================
 
 func _handle_jump_input() -> void:
 
@@ -391,11 +245,6 @@ func _handle_jump_input() -> void:
 
 	_start_jump()
 
-
-# ============================================================
-# START JUMP
-# ============================================================
-
 func _start_jump() -> void:
 
 	is_jumping = true
@@ -406,11 +255,6 @@ func _start_jump() -> void:
 	top_playback.travel(
 		"Moves_jump"
 	)
-
-
-# ============================================================
-# JUMP LANDING
-# ============================================================
 
 func _check_jump_landing() -> void:
 
@@ -426,11 +270,6 @@ func _check_jump_landing() -> void:
 			"Locomotion"
 		)
 
-
-# ============================================================
-# ATTACK INPUT
-# ============================================================
-
 func _handle_attack_input() -> void:
 
 	if not Input.is_action_just_pressed("attack"):
@@ -445,8 +284,6 @@ func _handle_attack_input() -> void:
 	if in_combat:
 		print("CURRENT COMBAT NODE: ", combat_playback.get_current_node())
 
-
-	# Pierwszy atak.
 	if not in_combat:
 
 		print("STARTING COMBAT")
@@ -455,16 +292,12 @@ func _handle_attack_input() -> void:
 
 		return
 
-
-	# Poza combo window input jest ignorowany.
 	if not combo_window_open:
 
 		print("IGNORED - COMBO WINDOW CLOSED")
 
 		return
 
-
-	# Zapamiętujemy input.
 	queued_attack = true
 
 	queued_attack_direction = Input.get_vector(
@@ -477,18 +310,11 @@ func _handle_attack_input() -> void:
 	print("QUEUED ATTACK")
 	print("DIRECTION: ", queued_attack_direction)
 
-
-	# Cancel window.
 	if cancel_window_open:
 
 		print("CANCEL WINDOW ACTIVE - TRANSITION NOW")
 
 		_transition_to_next_attack()
-		
-
-# ============================================================
-# START COMBAT
-# ============================================================
 
 func _start_combat() -> void:
 
@@ -502,8 +328,6 @@ func _start_combat() -> void:
 	combo_window_open = false
 	cancel_window_open = false
 
-
-	# Natychmiast zatrzymujemy ruch.
 	velocity.x = 0.0
 	velocity.z = 0.0
 
@@ -511,11 +335,6 @@ func _start_combat() -> void:
 	top_playback.travel(
 		"Combat"
 	)
-
-
-# ============================================================
-# ROTATE TO ATTACK DIRECTION
-# ============================================================
 
 func _rotate_to_attack_direction() -> void:
 
@@ -528,30 +347,6 @@ func _rotate_to_attack_direction() -> void:
 		queued_attack_direction.y
 	)
 
-
-# ============================================================
-# COMBO WINDOW
-# ============================================================
-#
-# Wywoływane z Call Method Track w AnimationPlayer.
-#
-# Każda animacja może mieć własny timing.
-#
-# Przykład:
-#
-# _open_combo_window()
-#       ↓
-#       ↓
-# _open_cancel_window()
-#       ↓
-#       ↓
-# _close_cancel_window()
-#       ↓
-# _close_combo_window()
-#
-# Cancel window powinno znajdować się
-# wewnątrz combo window.
-# ============================================================
 
 func _open_combo_window() -> void:
 
@@ -592,20 +387,6 @@ func _close_combo_window() -> void:
 		current_attack
 	)
 
-# ============================================================
-# CANCEL WINDOW
-# ============================================================
-#
-# Cancel window jest podzbiorem combo window.
-#
-# Jeżeli gracz już wcześniej kliknął:
-#
-# queued_attack == true
-#
-# to w momencie otwarcia cancel window
-# natychmiast przechodzimy do następnego ataku.
-# ============================================================
-
 func _open_cancel_window() -> void:
 
 	if not combo_window_open:
@@ -625,11 +406,9 @@ func _open_cancel_window() -> void:
 		queued_attack
 	)
 
-
 	if queued_attack:
 
 		_transition_to_next_attack()
-
 
 func _close_cancel_window() -> void:
 
@@ -648,7 +427,6 @@ func _close_cancel_window() -> void:
 
 		return
 
-
 	cancel_window_open = false
 	cancel_window_attack = ""
 
@@ -656,16 +434,6 @@ func _close_cancel_window() -> void:
 		"<<< CANCEL WINDOW CLOSE | ATTACK: ",
 		current_attack
 	)
-
-# ============================================================
-# GET NEXT ATTACK
-# ============================================================
-#
-# Jedno źródło prawdy dla kolejności combosa.
-#
-# Aktualny stan pobieramy bezpośrednio
-# z combat State Machine.
-# ============================================================
 
 func _get_next_attack(current_attack: String) -> String:
 
@@ -694,20 +462,6 @@ func _get_next_attack(current_attack: String) -> String:
 
 	return ""
 
-# ============================================================
-# TRANSITION TO NEXT ATTACK
-# ============================================================
-#
-# Ta funkcja jest używana w dwóch sytuacjach:
-#
-# 1. Gracz kliknął podczas cancel window.
-#
-# 2. Gracz kliknął wcześniej podczas combo window,
-#    a następnie cancel window właśnie się otworzyło.
-#
-# W obu przypadkach następny atak odpala się NATYCHMIAST.
-# ============================================================
-
 func _transition_to_next_attack() -> void:
 
 	var current_attack := String(
@@ -731,21 +485,16 @@ func _transition_to_next_attack() -> void:
 
 		return
 
-
 	_rotate_to_attack_direction()
-
 
 	queued_attack = false
 	queued_attack_direction = Vector2.ZERO
 
-
-	# Aktualna animacja zostaje przerwana.
 	combo_window_open = false
 	cancel_window_open = false
 
 	combo_window_attack = ""
 	cancel_window_attack = ""
-
 
 	print(
 		">>> TRAVEL TO: ",
@@ -756,22 +505,6 @@ func _transition_to_next_attack() -> void:
 	combat_playback.travel(
 		next_attack
 	)
-
-# ============================================================
-# ANIMATION FINISHED
-# ============================================================
-#
-# Ważna zmiana względem poprzedniej wersji:
-#
-# Ta funkcja NIE przechodzi już do następnego ataku.
-#
-# Jeżeli gracz chciał następny atak, przejście nastąpiło
-# już wcześniej przez _transition_to_next_attack().
-#
-# Jeżeli animacja dobiegła końca tutaj, oznacza to,
-# że nie było aktywnego inputu prowadzącego do kolejnego ataku.
-# ============================================================
-
 
 func _animation_to_combat_node(anim_name: String) -> String:
 
@@ -804,7 +537,6 @@ func _on_animation_finished(anim_name: StringName) -> void:
 		combat_playback.get_current_node()
 	)
 
-
 	print(
 		"ANIMATION FINISHED: ",
 		finished_animation,
@@ -814,15 +546,9 @@ func _on_animation_finished(anim_name: StringName) -> void:
 		current_node
 	)
 
-
-	# Jeżeli nie znamy tej animacji, ignorujemy event.
 	if finished_node.is_empty():
 		return
 
-
-	# Jeżeli animacja, która zakończyła się,
-	# nie jest już aktualnym node'em,
-	# oznacza to, że została przerwana przez travel().
 	if finished_node != current_node:
 
 		print(
@@ -831,10 +557,6 @@ func _on_animation_finished(anim_name: StringName) -> void:
 		)
 
 		return
-
-
-	# Tutaj mamy pewność, że zakończyła się
-	# aktualna animacja ataku.
 
 	combo_window_open = false
 	cancel_window_open = false
@@ -846,13 +568,7 @@ func _on_animation_finished(anim_name: StringName) -> void:
 	if not in_combat:
 		return
 
-
 	_exit_combat()
-
-	
-# ============================================================
-# EXIT COMBAT
-# ============================================================
 
 func _exit_combat() -> void:
 

@@ -99,67 +99,6 @@ nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_iyprq")
 nodes/TimeScale/position = Vector2(560, 160)
 node_connections = [&"output", 0, &"TimeScale", &"TimeScale", 0, &"StateMachine"]
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_b26j0"]
-animation = &"Attacks/attack1_recovery"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_n7ghd"]
-animation = &"Attacks/attack1_strike"
-use_custom_timeline = true
-timeline_length = 0.5
-stretch_time_scale = true
-start_offset = 0.0
-loop_mode = 0
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_nvl01"]
-animation = &"Attacks/attack2_strike"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ivps1"]
-animation = &"Attacks/attack3"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_urp6f"]
-animation = &"Attacks/attack4"
-use_custom_timeline = true
-timeline_length = 2.0
-stretch_time_scale = true
-start_offset = 0.0
-loop_mode = 0
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_7ahtn"]
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_urp6f"]
-advance_mode = 0
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_q13i1"]
-xfade_time = 0.1
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_bwjto"]
-xfade_time = 0.1
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_606se"]
-xfade_time = 0.1
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_u1c27"]
-xfade_time = 0.2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_8viyr"]
-xfade_time = 0.1
-
-[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_7lmhl"]
-states/Attacks_attack1_recovery/node = SubResource("AnimationNodeAnimation_b26j0")
-states/Attacks_attack1_recovery/position = Vector2(667, -20)
-states/Attacks_attack1_strike/node = SubResource("AnimationNodeAnimation_n7ghd")
-states/Attacks_attack1_strike/position = Vector2(539, 105)
-states/Attacks_attack2_strike/node = SubResource("AnimationNodeAnimation_nvl01")
-states/Attacks_attack2_strike/position = Vector2(830, 105)
-states/Attacks_attack3/node = SubResource("AnimationNodeAnimation_ivps1")
-states/Attacks_attack3/position = Vector2(830, 301)
-states/Attacks_attack4/node = SubResource("AnimationNodeAnimation_urp6f")
-states/Attacks_attack4/position = Vector2(539, 301)
-states/End/position = Vector2(1085, 212)
-transitions = ["Start", "Attacks_attack1_strike", SubResource("AnimationNodeStateMachineTransition_7ahtn"), "Attacks_attack1_strike", "Attacks_attack1_recovery", SubResource("AnimationNodeStateMachineTransition_urp6f"), "Attacks_attack1_strike", "Attacks_attack2_strike", SubResource("AnimationNodeStateMachineTransition_q13i1"), "Attacks_attack2_strike", "Attacks_attack3", SubResource("AnimationNodeStateMachineTransition_bwjto"), "Attacks_attack3", "Attacks_attack4", SubResource("AnimationNodeStateMachineTransition_606se"), "Attacks_attack4", "Attacks_attack1_strike", SubResource("AnimationNodeStateMachineTransition_u1c27"), "Attacks_attack1_recovery", "Attacks_attack2_strike", SubResource("AnimationNodeStateMachineTransition_8viyr")]
-graph_offset = Vector2(45, -120)
-
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_dx0e4"]
 animation = &"Moves/idle"
 
@@ -182,17 +121,8 @@ animation = &"Moves/jump"
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_qtqh7"]
 advance_mode = 2
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_2wuci"]
-xfade_time = 0.1
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_iruf7"]
-xfade_time = 0.2
-
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_b1ygp"]
 xfade_time = 0.2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_lfmf2"]
-xfade_time = 0.05
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_qemgg"]
 xfade_time = 0.2
@@ -206,18 +136,19 @@ xfade_time = 0.2
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_d30e8"]
 xfade_time = 0.1
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_8viyr"]
+xfade_time = 0.2
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_j5n4i"]
 states/Combat/node = SubResource("AnimationNodeBlendTree_f4lon")
-states/Combat/position = Vector2(93, 213)
-states/Combat1/node = SubResource("AnimationNodeStateMachine_7lmhl")
-states/Combat1/position = Vector2(258, 291)
+states/Combat/position = Vector2(285, 291)
 states/Locomotion/node = SubResource("AnimationNodeBlendSpace1D_7hik5")
 states/Locomotion/position = Vector2(498, 100)
 states/Moves_dash/node = SubResource("AnimationNodeAnimation_pisgm")
 states/Moves_dash/position = Vector2(498, 291)
 states/Moves_jump/node = SubResource("AnimationNodeAnimation_8mwp6")
 states/Moves_jump/position = Vector2(690, 291)
-transitions = ["Start", "Locomotion", SubResource("AnimationNodeStateMachineTransition_qtqh7"), "Locomotion", "Combat1", SubResource("AnimationNodeStateMachineTransition_2wuci"), "Combat1", "Locomotion", SubResource("AnimationNodeStateMachineTransition_iruf7"), "Locomotion", "Moves_dash", SubResource("AnimationNodeStateMachineTransition_b1ygp"), "Combat1", "Moves_dash", SubResource("AnimationNodeStateMachineTransition_lfmf2"), "Locomotion", "Moves_jump", SubResource("AnimationNodeStateMachineTransition_qemgg"), "Moves_jump", "Locomotion", SubResource("AnimationNodeStateMachineTransition_8mwp6"), "Combat", "Locomotion", SubResource("AnimationNodeStateMachineTransition_8ynux"), "Locomotion", "Combat", SubResource("AnimationNodeStateMachineTransition_d30e8")]
+transitions = ["Start", "Locomotion", SubResource("AnimationNodeStateMachineTransition_qtqh7"), "Locomotion", "Moves_dash", SubResource("AnimationNodeStateMachineTransition_b1ygp"), "Locomotion", "Moves_jump", SubResource("AnimationNodeStateMachineTransition_qemgg"), "Moves_jump", "Locomotion", SubResource("AnimationNodeStateMachineTransition_8mwp6"), "Combat", "Locomotion", SubResource("AnimationNodeStateMachineTransition_8ynux"), "Locomotion", "Combat", SubResource("AnimationNodeStateMachineTransition_d30e8"), "Combat", "Moves_dash", SubResource("AnimationNodeStateMachineTransition_8viyr")]
 graph_offset = Vector2(-123, -53)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_nvl01"]
