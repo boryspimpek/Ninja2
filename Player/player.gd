@@ -23,7 +23,7 @@ const ATTACK_SEQUENCE := [
 ]
 
 # Wyliczane w _ready() z ATTACK_SEQUENCE, żeby nie trzymać dwóch osobnych,
-# ręcznie synchronizowanych map (to był główny powód rozjazdów nazw).
+# ręcznie synchronizowanych map.
 var _next_attack: Dictionary = {}   # node_name -> next_node_name
 var _anim_to_node: Dictionary = {}  # anim_name -> node_name
 
@@ -163,7 +163,7 @@ func _handle_movement(delta: float) -> void:
 	).length() / move_speed
 
 	anim_tree.set(
-		"parameters/Locomotion/blend_position",
+		"parameters/Locomotion/Move/blend_amount",
 		speed_ratio
 	)
 
