@@ -3,7 +3,6 @@ extends CharacterBody3D
 @export var move_speed: float = 5.0
 @export var acceleration: float = 10.0
 @export var rotation_speed: float = 10.0
-@export var attack_buffer_time: float = 0.3
 
 @export var dash_speed: float = 20.0
 @export var dash_duration: float = 0.15
@@ -24,12 +23,15 @@ var is_jumping: bool = false
 # Czy aktualnie jesteśmy w systemie ataku.
 var in_combat: bool = false
 
+# Czy combo window aktualnie otwarte (sterowane przez Call Method Track
+# w AnimationPlayer, klucze _open_combo_window / _close_combo_window).
+var combo_window_open: bool = false
 
 # Input buffer.
 #
 # false = nie kliknięto następnego ataku
-# true  = kliknięto i po zakończeniu aktualnej animacji
-#         należy przejść do kolejnego ataku.
+# true  = kliknięto podczas otwartego combo window i po zakończeniu
+#         aktualnej animacji należy przejść do kolejnego ataku.
 var queued_attack: bool = false
 var queued_attack_direction: Vector2 = Vector2.ZERO
 var target_attack_rotation: float = 0.0
@@ -142,7 +144,7 @@ func _update_footstep_audio(speed_ratio: float) -> void:
 		footstep_player.play()
 	elif not is_moving and footstep_player.playing:
 		footstep_player.stop()
-		
+
 
 func _handle_dash_input() -> void:
 	if not Input.is_action_just_pressed("dash"):
@@ -167,6 +169,7 @@ func _handle_dash(delta: float) -> void:
 
 		top_playback.travel("Locomotion")
 
+
 func _start_dash() -> void:
 	var input_dir := Input.get_vector(
 		"move_left",
@@ -188,9 +191,13 @@ func _start_dash() -> void:
 			cos(rotation.y)
 		).normalized()
 
+	# Dash przerywa combat "na twardo" - musimy więc też
+	# jawnie zresetować stan combo window, bo animacja ataku
+	# nie zdąży odpalić własnego klucza _close_combo_window().
 	in_combat = false
 	queued_attack = false
 	queued_attack_direction = Vector2.ZERO
+	combo_window_open = false
 
 	rotation.y = atan2(
 		dash_direction.x,
@@ -251,9 +258,10 @@ func _handle_attack_input() -> void:
 		return
 
 
-	# Kolejne kliknięcie jest akceptowane
-	# tylko w ostatnich 0.3 sekundy animacji.
-	if _is_attack_buffer_window_open():
+	# Kolejne kliknięcie jest akceptowane tylko wtedy, gdy combo
+	# window aktualnie odtwarzanej animacji jest otwarte (sterowane
+	# przez Call Method Track w AnimationPlayer).
+	if combo_window_open:
 		queued_attack = true
 		queued_attack_direction = Input.get_vector(
 			"move_left",
@@ -263,6 +271,7 @@ func _handle_attack_input() -> void:
 		)
 
 		print("QUEUED ATTACK DIRECTION: ", queued_attack_direction)
+
 
 # ============================================================
 # START COMBAT
@@ -275,21 +284,13 @@ func _start_combat() -> void:
 
 	queued_attack_direction = Vector2.ZERO
 	target_attack_rotation = rotation.y
-	
+	combo_window_open = false
+
 	# Natychmiast zatrzymujemy ruch.
 	velocity.x = 0.0
 	velocity.z = 0.0
 
 	top_playback.travel("Combat")
-
-
-func _is_attack_buffer_window_open() -> bool:
-	var current_position := combat_playback.get_current_play_position()
-	var animation_length := combat_playback.get_current_length()
-
-	var remaining_time := animation_length - current_position
-
-	return remaining_time <= attack_buffer_time
 
 
 func _rotate_to_attack_direction() -> void:
@@ -301,6 +302,21 @@ func _rotate_to_attack_direction() -> void:
 		queued_attack_direction.y
 	)
 
+
+# ============================================================
+# COMBO WINDOW - wywoływane z Call Method Track w AnimationPlayer,
+# osobno dla każdej animacji ataku (attack1_strike, attack1_recovery,
+# attack2_strike, attack3, attack4).
+# ============================================================
+
+func _open_combo_window() -> void:
+	combo_window_open = true
+
+
+func _close_combo_window() -> void:
+	combo_window_open = false
+
+
 # ============================================================
 # ANIMATION FINISHED
 # ============================================================
@@ -308,6 +324,10 @@ func _rotate_to_attack_direction() -> void:
 func _on_animation_finished(anim_name: StringName) -> void:
 
 	var animation := String(anim_name)
+
+	# Niezależnie od tego, co się stanie dalej, animacja się skończyła,
+	# więc jej combo window na pewno powinno być już zamknięte.
+	combo_window_open = false
 
 	match animation:
 
@@ -353,7 +373,7 @@ func _on_animation_finished(anim_name: StringName) -> void:
 
 				# Kliknięto podczas Recovery.
 				#
-				# Recovery -> Attack1
+				# Recovery -> Attack2
 				combat_playback.travel(
 					"Attacks_attack2_strike"
 				)
@@ -379,9 +399,9 @@ func _on_animation_finished(anim_name: StringName) -> void:
 				# Kliknięto podczas Attack2.
 				#
 				# Attack2 -> Attack3
-				
+
 				_rotate_to_attack_direction()
-				
+
 				combat_playback.travel(
 					"Attacks_attack3"
 				)
@@ -394,7 +414,7 @@ func _on_animation_finished(anim_name: StringName) -> void:
 				#
 				# Attack2 -> Idle
 				_exit_combat()
-		
+
 
 		# --------------------------------------------------------
 		# ATTACK 3 STRIKE
@@ -407,9 +427,9 @@ func _on_animation_finished(anim_name: StringName) -> void:
 				# Kliknięto podczas Attack3.
 				#
 				# Attack3 -> Attack4
-				
+
 				_rotate_to_attack_direction()
-				
+
 				combat_playback.travel(
 					"Attacks_attack4"
 				)
@@ -461,5 +481,6 @@ func _exit_combat() -> void:
 	in_combat = false
 	queued_attack = false
 	queued_attack_direction = Vector2.ZERO
+	combo_window_open = false
 
 	top_playback.travel("Locomotion")

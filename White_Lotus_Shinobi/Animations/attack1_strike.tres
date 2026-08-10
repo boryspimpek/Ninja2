@@ -2,7 +2,7 @@
 
 [resource]
 resource_name = "attack1_strice"
-length = 0.833
+length = 0.866
 tracks/0/type = "position_3d"
 tracks/0/imported = true
 tracks/0/enabled = true
@@ -393,5 +393,22 @@ tracks/53/keys = {
 "values": [{
 "args": [0.0],
 "method": &"play"
+}]
+}
+tracks/54/type = "method"
+tracks/54/imported = false
+tracks/54/enabled = true
+tracks/54/path = NodePath(".")
+tracks/54/interp = 1
+tracks/54/loop_wrap = true
+tracks/54/keys = {
+"times": PackedFloat32Array(0.5, 0.8666667),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"_open_combo_window"
+}, {
+"args": [],
+"method": &"_close_combo_window"
 }]
 }
