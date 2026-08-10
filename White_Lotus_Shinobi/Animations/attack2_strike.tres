@@ -409,7 +409,7 @@ tracks/55/path = NodePath(".")
 tracks/55/interp = 1
 tracks/55/loop_wrap = true
 tracks/55/keys = {
-"times": PackedFloat32Array(0.3, 0.6666667),
+"times": PackedFloat32Array(0.36666667, 0.6666667),
 "transitions": PackedFloat32Array(1, 1),
 "values": [{
 "args": [],
@@ -417,5 +417,22 @@ tracks/55/keys = {
 }, {
 "args": [],
 "method": &"_close_combo_window"
+}]
+}
+tracks/56/type = "method"
+tracks/56/imported = false
+tracks/56/enabled = true
+tracks/56/path = NodePath(".")
+tracks/56/interp = 1
+tracks/56/loop_wrap = true
+tracks/56/keys = {
+"times": PackedFloat32Array(0.36666667, 0.6666667),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"_open_cancel_window"
+}, {
+"args": [],
+"method": &"_close_cancel_window"
 }]
 }

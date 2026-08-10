@@ -344,7 +344,7 @@ libraries/Moves = SubResource("AnimationLibrary_n7ghd")
 [node name="AnimationTree" type="AnimationTree" parent="." index="2" unique_id=1914949196]
 tree_root = SubResource("AnimationNodeStateMachine_j5n4i")
 anim_player = NodePath("../AnimationPlayer")
-parameters/Combat/TimeScale/scale = 1.0
+parameters/Combat/TimeScale/scale = 2.0
 parameters/Locomotion/blend_position = -0.02404965
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." index="3" unique_id=1219553363]
