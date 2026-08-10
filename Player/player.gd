@@ -335,7 +335,7 @@ func _on_animation_finished(anim_name: StringName) -> void:
 		# ATTACK 1 STRIKE
 		# --------------------------------------------------------
 
-		"Attacks/attack1_strike":
+		"Attacks/attack1":
 
 			if queued_attack:
 
@@ -348,36 +348,7 @@ func _on_animation_finished(anim_name: StringName) -> void:
 				combat_playback.travel(
 					"Attacks_attack2_strike"
 				)
-
-			else:
-
-				# Nie kliknięto.
-				#
-				# Attack1 -> Recovery
-				combat_playback.travel(
-					"Attacks_attack1_recovery"
-				)
-
-
-			# Klik został właśnie wykorzystany.
-			queued_attack = false
-
-
-		# --------------------------------------------------------
-		# ATTACK 1 RECOVERY
-		# --------------------------------------------------------
-
-		"Attacks/attack1_recovery":
-
-			if queued_attack:
-
-				# Kliknięto podczas Recovery.
-				#
-				# Recovery -> Attack2
-				combat_playback.travel(
-					"Attacks_attack2_strike"
-				)
-
+				
 				queued_attack = false
 
 			else:

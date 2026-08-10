@@ -50,11 +50,8 @@ _data = {
 &"run": ExtResource("5_dw050")
 }
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_qemgg"]
-animation = &"Attacks/attack1_recovery"
-
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_8viyr"]
-animation = &"Attacks/attack1_strike"
+animation = &"Attacks/attack1"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_sm0op"]
 animation = &"Attacks/attack2_strike"
@@ -68,11 +65,8 @@ animation = &"Attacks/attack4"
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_755ss"]
 advance_mode = 2
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_bbimk"]
-advance_mode = 0
-
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_m0h3t"]
-xfade_time = 0.1
+xfade_time = 0.2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_i4o1l"]
 xfade_time = 0.1
@@ -83,21 +77,16 @@ xfade_time = 0.1
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_c6x0f"]
 xfade_time = 0.1
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_jp1hh"]
-xfade_time = 0.1
-
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_qs4pp"]
-states/Attacks_attack1_recovery/node = SubResource("AnimationNodeAnimation_qemgg")
-states/Attacks_attack1_recovery/position = Vector2(900, 192)
-states/Attacks_attack1_strike/node = SubResource("AnimationNodeAnimation_8viyr")
-states/Attacks_attack1_strike/position = Vector2(606, 192)
+states/Attacks_attack1/node = SubResource("AnimationNodeAnimation_8viyr")
+states/Attacks_attack1/position = Vector2(606, 192)
 states/Attacks_attack2_strike/node = SubResource("AnimationNodeAnimation_sm0op")
 states/Attacks_attack2_strike/position = Vector2(802, 313)
 states/Attacks_attack3/node = SubResource("AnimationNodeAnimation_76lrf")
 states/Attacks_attack3/position = Vector2(614, 433)
 states/Attacks_attack4/node = SubResource("AnimationNodeAnimation_efx54")
 states/Attacks_attack4/position = Vector2(411, 313)
-transitions = ["Start", "Attacks_attack1_strike", SubResource("AnimationNodeStateMachineTransition_755ss"), "Attacks_attack1_strike", "Attacks_attack1_recovery", SubResource("AnimationNodeStateMachineTransition_bbimk"), "Attacks_attack1_strike", "Attacks_attack2_strike", SubResource("AnimationNodeStateMachineTransition_m0h3t"), "Attacks_attack2_strike", "Attacks_attack3", SubResource("AnimationNodeStateMachineTransition_i4o1l"), "Attacks_attack3", "Attacks_attack4", SubResource("AnimationNodeStateMachineTransition_j2n6q"), "Attacks_attack4", "Attacks_attack1_strike", SubResource("AnimationNodeStateMachineTransition_c6x0f"), "Attacks_attack1_recovery", "Attacks_attack2_strike", SubResource("AnimationNodeStateMachineTransition_jp1hh")]
+transitions = ["Start", "Attacks_attack1", SubResource("AnimationNodeStateMachineTransition_755ss"), "Attacks_attack1", "Attacks_attack2_strike", SubResource("AnimationNodeStateMachineTransition_m0h3t"), "Attacks_attack2_strike", "Attacks_attack3", SubResource("AnimationNodeStateMachineTransition_i4o1l"), "Attacks_attack3", "Attacks_attack4", SubResource("AnimationNodeStateMachineTransition_j2n6q"), "Attacks_attack4", "Attacks_attack1", SubResource("AnimationNodeStateMachineTransition_c6x0f")]
 graph_offset = Vector2(58, 23)
 
 [sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_iyprq"]
