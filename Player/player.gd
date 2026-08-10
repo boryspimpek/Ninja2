@@ -59,7 +59,6 @@ var is_dashing: bool = false
 var dash_timer: float = 0.0
 var dash_direction: Vector3 = Vector3.ZERO
 
-
 func _ready() -> void:
 
 	for i in ATTACK_SEQUENCE.size():
@@ -106,7 +105,6 @@ func _physics_process(delta: float) -> void:
 			target_attack_rotation,
 			rotation_speed * delta
 		)
-
 
 	move_and_slide()
 
@@ -176,7 +174,6 @@ func _update_footstep_audio(speed_ratio: float) -> void:
 		and is_on_floor()
 	)
 
-
 	if is_moving and not footstep_player.playing:
 
 		footstep_player.play()
@@ -193,7 +190,6 @@ func _handle_dash_input() -> void:
 
 	if is_dashing:
 		return
-
 
 	_start_dash()
 
@@ -283,7 +279,6 @@ func _handle_jump_input() -> void:
 	if is_dashing or in_combat or is_jumping:
 		return
 
-
 	_start_jump()
 
 func _start_jump() -> void:
@@ -370,7 +365,6 @@ func _rotate_to_attack_direction() -> void:
 		queued_attack_direction.y
 	)
 
-
 func _open_combo_window() -> void:
 
 	combo_window.start(
@@ -451,7 +445,6 @@ func _on_animation_finished(anim_name: StringName) -> void:
 	combo_window.reset()
 	cancel_window.reset()
 
-
 	if not in_combat:
 		return
 
@@ -466,7 +459,6 @@ func _exit_combat() -> void:
 
 	combo_window.reset()
 	cancel_window.reset()
-
 
 	top_playback.travel(
 		"Locomotion"
