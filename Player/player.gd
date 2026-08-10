@@ -43,7 +43,7 @@ var dash_direction: Vector3 = Vector3.ZERO
 
 func _ready() -> void:
 	top_playback = anim_tree.get("parameters/playback")
-	combat_playback = anim_tree.get("parameters/Combat/playback")
+	combat_playback = anim_tree.get("parameters/Combat/StateMachine/playback")
 
 	anim_tree.animation_finished.connect(_on_animation_finished)
 
