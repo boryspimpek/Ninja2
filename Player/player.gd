@@ -17,7 +17,7 @@ extends CharacterBody3D
 # node = nazwa węzła w Combat/StateMachine, anim = nazwa animacji w AnimationPlayer.
 const ATTACK_SEQUENCE := [
 	{"node": "Attacks_attack1", "anim": "Attacks/attack1"},
-	{"node": "Attacks_attack2_strike", "anim": "Attacks/attack2_strike"},
+	{"node": "Attacks_attack2slash", "anim": "Attacks/attack2slash"},
 	{"node": "Attacks_attack3", "anim": "Attacks/attack3"},
 	{"node": "Attacks_attack4", "anim": "Attacks/attack4"},
 ]
